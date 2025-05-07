@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Mundo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: black;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background-color: white;
+      border-radius: 50%;
+      animation: moveStars linear infinite;
+    }
+
+    @keyframes moveStars {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-100vw, -100vh);
+      }
+    }
+
+    #earth {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20%;
+      transition: width 0.5s ease;
+    }
+
+    .title {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2em;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .quality-selector {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1em;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1;
+      border: 2px solid white;
+    }
+
+    .counter {
+      position: absolute;
+      bottom: 20%; /* Mudei para 15% para colocar acima do seletor */
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5em;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      z-index: 2;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars"></div>
+
+  <div class="title">MEU MUNDO</div>
+
+  <img id="earth" src="144p.jpeg" alt="Planeta Terra">
+
+  <select id="quality-selector" class="quality-selector">
+    <option value="144p">144p</option>
+    <option value="240p">240p</option>
+    <option value="480p">480p</option>
+    <option value="720p">720p</option>
+    <option value="1080p">1080p</option>
+  </select>
+
+  <div id="counter" class="counter"></div>
+
+  <script>
+    const startDate = new Date('2024-09-25T17:40:00');
+
+    function formatTime(ms) {
+      const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+      ms -= days * (1000 * 60 * 60 * 24);
+      const hours = Math.floor(ms / (1000 * 60 * 60));
+      ms -= hours * (1000 * 60 * 60);
+      const minutes = Math.floor(ms / (1000 * 60));
+      ms -= minutes * (1000 * 60);
+      const seconds = Math.floor(ms / 1000);
+      return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    function updateCounter() {
+      const now = new Date();
+      const elapsed = now - startDate;
+      const counter = document.getElementById('counter');
+      counter.textContent = `Você é tudo pra mim! Eu te amo: há ${formatTime(elapsed)}`;
+    }
+
+    setInterval(updateCounter, 1000);
+
+    document.getElementById('quality-selector').addEventListener('change', function() {
+      const quality = this.value;
+      const earthImage = document.getElementById('earth');
+      earthImage.src = `${quality}.jpeg`;
+
+      const counter = document.getElementById('counter');
+      if (quality === '1080p') {
+        counter.style.display = 'block';
+      } else {
+        counter.style.display = 'none';
+      }
+    });
+
+    function createStars() {
+      const starsContainer = document.querySelector('.stars');
+      const starCount = 100;
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.animationDuration = `${Math.random() * 5 + 5}s`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        starsContainer.appendChild(star);
+      }
+    }
+
+    createStars();
+  </script>
+
+</body>
+</html>

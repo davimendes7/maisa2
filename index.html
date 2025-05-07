@@ -19,6 +19,7 @@
       justify-content: center;
       align-items: center;
       position: relative;
+      font-family: 'Arial', sans-serif;
     }
 
     .stars {
@@ -55,6 +56,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 20%;
+      max-width: 300px;
       transition: width 0.5s ease;
     }
 
@@ -65,7 +67,6 @@
       transform: translateX(-50%);
       font-size: 2em;
       color: white;
-      font-family: 'Arial', sans-serif;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       z-index: 1;
     }
@@ -88,15 +89,53 @@
 
     .counter {
       position: absolute;
-      bottom: 20%; /* Mudei para 15% para colocar acima do seletor */
+      bottom: 20%;
       left: 50%;
       transform: translateX(-50%);
       font-size: 1.5em;
       color: white;
-      font-family: 'Arial', sans-serif;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       z-index: 2;
       display: none;
+    }
+
+    /* Media Queries para Responsividade */
+    @media (max-width: 768px) {
+      .title {
+        font-size: 1.5em;
+      }
+
+      #earth {
+        width: 50%;
+      }
+
+      .quality-selector {
+        font-size: 0.9em;
+        padding: 8px;
+      }
+
+      .counter {
+        font-size: 1.2em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .title {
+        font-size: 1.2em;
+      }
+
+      #earth {
+        width: 70%;
+      }
+
+      .quality-selector {
+        font-size: 0.8em;
+        padding: 6px;
+      }
+
+      .counter {
+        font-size: 1em;
+      }
     }
   </style>
 </head>
